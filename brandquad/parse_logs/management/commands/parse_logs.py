@@ -19,9 +19,12 @@ class Command(BaseCommand):
 
             process_save_logs(url)
         except (
-            validators.InvalidURL, utils.RequestError
+            validators.InvalidURL,
+            utils.RequestError,
         ) as error:
             logger.error(error.message)
+
+        logger.info('Logs successfully saved')
 
     def add_arguments(self, parser):
         parser.add_argument(
