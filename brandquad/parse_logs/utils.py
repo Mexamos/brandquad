@@ -7,7 +7,6 @@ from requests.models import Response
 
 logger = logging.getLogger('utils')
 
-# PARSE_REGEX = '([\d\.]+ ).+?\[(.+)?\] "(\w+) (.+?)\s.+?\s(\d+) (\d+)'
 PARSE_REGEX = '([\d\.]+).+?\[(.+)?\] \"(\w+) (.+?)\s.+?\s(\d+)\s(.+?)\s'
 
 
