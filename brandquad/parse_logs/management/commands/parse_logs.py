@@ -3,6 +3,8 @@ import logging
 from django.core.management.base import BaseCommand
 
 from parse_logs import validators
+from parse_logs.views import process_save_logs
+from parse_logs import utils
 
 logger = logging.getLogger('manage-commands')
 
@@ -14,7 +16,11 @@ class Command(BaseCommand):
         url = options['url'][0]
         try:
             validators.validate_url(url)
-        except validators.InvalidURL as error:
+
+            process_save_logs(url)
+        except (
+            validators.InvalidURL, utils.RequestError
+        ) as error:
             logger.error(error.message)
 
     def add_arguments(self, parser):

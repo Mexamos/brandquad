@@ -8,6 +8,7 @@ authors = ["Maksim <tolstikov_m@mail.ru>"]
 python = "3.9.0"
 Django = "^3.2.3"
 python-dotenv = "^0.17.1"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 
