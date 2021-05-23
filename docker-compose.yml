@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  postgres:
+  pgdata:
     image: postgres:13
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -9,6 +9,15 @@ services:
       - 5432:5432
     env_file:
       - .env
+  web:
+    build: .
+    command: python ./brandquad/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pgdata
 
 volumes:
   pgdata:
