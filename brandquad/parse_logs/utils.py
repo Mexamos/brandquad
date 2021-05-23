@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 import logging
+import typing
 
 from requests import Session
 from requests.models import Response
@@ -26,11 +27,17 @@ def make_request(
     return response
 
 
-def parse_logs(url: str):
+def parse_logs(
+    url: str, rows_number: int = None
+) -> typing.List[typing.Optional[typing.Dict[str, typing.Union[str, datetime, int]]]]:
     response = make_request(url)
 
     logs = []
-    for line in response.text.split('\n'):
+    lines = response.text.split('\n')
+    if rows_number is not None:
+        lines = lines[:rows_number + 1]
+
+    for line in lines:
         match = re.search(PARSE_REGEX, line)
         if match is None:
             logger.warn(f'Invalid log line: {line}')
@@ -56,4 +63,3 @@ def parse_logs(url: str):
             continue
 
     return logs
-

@@ -11,6 +11,8 @@ services:
       - .env
   web:
     build: .
+    environment:
+      - PGHOST=pgdata
     command: python ./brandquad/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code

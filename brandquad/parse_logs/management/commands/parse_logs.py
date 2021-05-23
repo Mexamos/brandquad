@@ -14,10 +14,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         url = options['url'][0]
+        rows_number = options['rows_number'][0] if len(options['rows_number']) > 0 else None
+
         try:
             validators.validate_url(url)
 
-            process_save_logs(url)
+            process_save_logs(url, rows_number=rows_number)
         except (
             validators.InvalidURL,
             utils.RequestError,
@@ -32,4 +34,11 @@ class Command(BaseCommand):
             type=str,
             nargs=1,
             help='URL for get logs',
+        )
+
+        parser.add_argument(
+            'rows_number',
+            type=int,
+            nargs='*',
+            help='Number of log rows',
         )
