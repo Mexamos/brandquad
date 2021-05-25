@@ -5,6 +5,6 @@ class DataLog(models.Model):
     ip = models.CharField(max_length=16)
     date = models.DateTimeField(db_index=True)
     method = models.CharField(max_length=50)
-    uri = models.CharField(max_length=200, db_index=True)
+    uri = models.TextField()
     response_status = models.IntegerField(db_index=True)
-    response_size = models.IntegerField()
+    response_size = models.IntegerField(null=True)
